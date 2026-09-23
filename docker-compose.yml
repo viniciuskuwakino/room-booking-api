@@ -1,0 +1,24 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: postgres-room-booking-db
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+    ports:
+      - "${DB_PORT}:5432"
+    volumes:
+      - db:/var/lib/postgresql/data
+    networks:
+      - room-booking-network
+
+networks:
+  room-booking-network:
+    name: room-booking-network
+    driver: bridge
+
+volumes:
+  db:
+    driver: local
